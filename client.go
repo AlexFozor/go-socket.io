@@ -3,8 +3,6 @@ package socketio
 import (
 	"errors"
 	"net/url"
-	"path"
-	"strings"
 
 	"github.com/googollee/go-socket.io/engineio"
 	"github.com/googollee/go-socket.io/engineio/transport"
@@ -39,13 +37,6 @@ func NewClient(addr string, opts *engineio.Options) (*Client, error) {
 	}
 
 	namespace := fmtNS(u.Path)
-
-	// Not allowing other than default
-	u.Path = path.Join("/socket.io", namespace)
-	u.Path = u.EscapedPath()
-	if strings.HasSuffix(u.Path, "socket.io") {
-		u.Path += "/"
-	}
 
 	return &Client{
 		namespace: namespace,
